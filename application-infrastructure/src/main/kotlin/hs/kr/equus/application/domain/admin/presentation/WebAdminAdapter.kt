@@ -1,7 +1,7 @@
 package hs.kr.equus.application.domain.admin.presentation
 
 import hs.kr.equus.application.domain.application.model.types.ApplicationType
-import hs.kr.equus.application.domain.application.presentation.WepApplicationPdfAdapter
+import hs.kr.equus.application.domain.application.presentation.WebApplicationPdfAdapter
 import hs.kr.equus.application.domain.application.presentation.dto.response.GetApplicationStatusByRegionWebResponse
 import hs.kr.equus.application.domain.application.usecase.*
 import hs.kr.equus.application.domain.application.usecase.dto.response.GetApplicationCountResponse
@@ -35,7 +35,8 @@ class WebAdminAdapter(
     private val printApplicationCheckListUseCase: PrintApplicationCheckListUseCase,
     private val printAdmissionTicketUseCase: PrintAdmissionTicketUseCase,
     private val getApplicationStatusByRegionUseCase: GetApplicationStatusByRegionUseCase,
-    private val updateFirstRoundPassedApplicationExamCodeUseCase: UpdateFirstRoundPassedApplicationExamCodeUseCase
+    private val updateFirstRoundPassedApplicationExamCodeUseCase: UpdateFirstRoundPassedApplicationExamCodeUseCase,
+    private val introductionPdfUseCase: GetIntroductionPdfUseCase
 ) {
 
     @GetMapping("/statics/score")
@@ -122,6 +123,6 @@ class WebAdminAdapter(
         return introductionPdfUseCase.execute()
     }
     private fun encodeFileName(): String {
-        return String(WepApplicationPdfAdapter.FILE_NAME.toByteArray(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1)
+        return String(WebApplicationPdfAdapter.FILE_NAME.toByteArray(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1)
     }
 }

@@ -9,7 +9,6 @@ import hs.kr.equus.application.domain.file.presentation.dto.response.UploadImage
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
-import org.springframework.web.multipart.MultipartHttpServletRequest
 import java.nio.charset.StandardCharsets
 import javax.servlet.http.HttpServletResponse
 import javax.validation.Valid
@@ -146,6 +145,6 @@ class WebApplicationAdapter(
         return introductionPdfUseCase.execute()
     }
     private fun encodeFileName(): String {
-        return String(WepApplicationPdfAdapter.FILE_NAME.toByteArray(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1)
+        return String(WebApplicationPdfAdapter.FILE_NAME.toByteArray(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1)
     }
 }
