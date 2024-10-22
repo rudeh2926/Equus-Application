@@ -12,23 +12,7 @@ import java.io.ByteArrayOutputStream
 @Component
 class PdfProcessor(
     private val converterPropertiesCreator: ConverterPropertiesCreator,
-    private val pdfDocumentFacade: PdfDocumentFacade
 ) {
-
-    fun concat(first: ByteArrayOutputStream, second: ByteArrayOutputStream): ByteArrayOutputStream {
-        val outputStream = ByteArrayOutputStream()
-        val mergedDocument = PdfDocument(PdfWriter(outputStream))
-        val merger = PdfMerger(mergedDocument)
-
-        val firstDocument = pdfDocumentFacade.getPdfDocument(first)
-        val secondDocument = pdfDocumentFacade.getPdfDocument(second)
-
-        mergeDocument(merger, firstDocument)
-        mergeDocument(merger, secondDocument)
-
-        mergedDocument.close()
-        return outputStream
-    }
 
     fun convertHtmlToPdf(html: String): ByteArrayOutputStream {
         val outputStream = ByteArrayOutputStream()

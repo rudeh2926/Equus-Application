@@ -7,4 +7,5 @@ object TemplateFileName {
     const val NON_SMOKING = "/nonsmoking.html"
     const val RECOMMENDATION = "/recommendation.html"
     const val SMOKING_EXAMINE = "/smoking_examine.html"
+    const val ADMIN_INTRODUCTION = "/admin_introduction.html"
 }

@@ -298,8 +298,6 @@ class PdfDataConverter(
         values["selfIntroduction"] = setBlankIfNull(application.selfIntroduce)
         values["studyPlan"] = setBlankIfNull(application.studyPlan)
         values["newLineChar"] = "\n"
-        val status = statusPort.queryStatusByReceiptCode(application.receiptCode)
-        values["examCode"] = setBlankIfNull(status?.examCode)
     }
 
     private fun setTeacherInfo(application: Application, values: MutableMap<String, Any>) {
