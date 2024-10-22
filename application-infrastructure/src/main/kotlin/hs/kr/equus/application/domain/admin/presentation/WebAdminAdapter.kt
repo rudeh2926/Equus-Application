@@ -1,6 +1,7 @@
 package hs.kr.equus.application.domain.admin.presentation
 
 import hs.kr.equus.application.domain.application.model.types.ApplicationType
+import hs.kr.equus.application.domain.application.presentation.WepApplicationPdfAdapter
 import hs.kr.equus.application.domain.application.presentation.dto.response.GetApplicationStatusByRegionWebResponse
 import hs.kr.equus.application.domain.application.usecase.*
 import hs.kr.equus.application.domain.application.usecase.dto.response.GetApplicationCountResponse
@@ -10,6 +11,7 @@ import hs.kr.equus.application.domain.application.usecase.dto.response.GetApplic
 import hs.kr.equus.application.domain.application.usecase.dto.response.GetStaticsCountResponse
 import hs.kr.equus.application.domain.score.usecase.QueryStaticsScoreUseCase
 import hs.kr.equus.application.domain.score.usecase.dto.response.GetStaticsScoreResponse
+import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PatchMapping
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import java.nio.charset.StandardCharsets
 import javax.servlet.http.HttpServletResponse
 
 @RestController
@@ -111,5 +114,14 @@ class WebAdminAdapter(
     @PatchMapping("/exam-code")
     fun updateFirstRoundPassedApplicationExamCode() {
         updateFirstRoundPassedApplicationExamCodeUseCase.execute()
+    }
+
+    @GetMapping("/pdf/introduction", produces = [MediaType.APPLICATION_PDF_VALUE])
+    fun getIntroductionPdf(response: HttpServletResponse): ByteArray {
+        response.setHeader("Content-Disposition", "attachment; filename=\"${encodeFileName()}.pdf\"")
+        return introductionPdfUseCase.execute()
+    }
+    private fun encodeFileName(): String {
+        return String(WepApplicationPdfAdapter.FILE_NAME.toByteArray(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1)
     }
 }

@@ -6,8 +6,12 @@ import hs.kr.equus.application.domain.application.usecase.dto.request.*
 import hs.kr.equus.application.domain.application.usecase.dto.response.*
 import hs.kr.equus.application.domain.file.presentation.converter.ImageFileConverter
 import hs.kr.equus.application.domain.file.presentation.dto.response.UploadImageWebResponse
+import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
+import org.springframework.web.multipart.MultipartHttpServletRequest
+import java.nio.charset.StandardCharsets
+import javax.servlet.http.HttpServletResponse
 import javax.validation.Valid
 
 @RestController
@@ -24,8 +28,8 @@ class WebApplicationAdapter(
     private val updateStudyPlanUseCase: UpdateStudyPlanUseCase,
     private val uploadPhotoUseCase: UploadPhotoUseCase,
     private val getApplicationTypeUseCase: GetApplicationTypeUseCase,
-    private val submitApplicationFinalUseCase: SubmitApplicationFinalUseCase,
-    private val getMyApplicationStatusUseCase: GetMyApplicationStatusUseCase
+    private val getMyApplicationStatusUseCase: GetMyApplicationStatusUseCase,
+    private val introductionPdfUseCase: GetIntroductionPdfUseCase
 ) {
     @PostMapping
     fun createApplication() {
@@ -135,4 +139,13 @@ class WebApplicationAdapter(
 
     @GetMapping("/status")
     fun getMyApplicationStatus(): GetApplicationStatusResponse = getMyApplicationStatusUseCase.execute()
+
+    @GetMapping("/pdf/introduction", produces = [MediaType.APPLICATION_PDF_VALUE])
+    fun getIntroductionPdf(response: HttpServletResponse): ByteArray {
+        response.setHeader("Content-Disposition", "attachment; filename=\"${encodeFileName()}.pdf\"")
+        return introductionPdfUseCase.execute()
+    }
+    private fun encodeFileName(): String {
+        return String(WepApplicationPdfAdapter.FILE_NAME.toByteArray(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1)
+    }
 }
