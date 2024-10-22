@@ -1,9 +1,13 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>application.html</title>
+    <title><!DOCTYPE HTML>
+        <html xmlns:th="http://www.thymeleaf.org">
+        <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>application.html</title>
     <style>
         td {
             border: 1px solid black;
@@ -23,6 +27,7 @@
     <p class="MsoNormal" style="text-align: center; margin: 0;">
         <b>
             <span style="font-size: 20pt; font-family: KoPubWorldDotum_Pro Medium;">자기소개서 및 학업계획서</span>
+            <span th:text="${examCode}"></span>
         </b>
     </p>
 </div>
@@ -76,5 +81,10 @@
     </tr>
 </table>
 </div>
+</body>
+</html></title>
+</head>
+<body>
+
 </body>
 </html>

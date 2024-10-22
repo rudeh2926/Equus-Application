@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse
 
 @RestController
 @RequestMapping("/pdf")
-class WepApplicationPdfAdapter(
+class WebApplicationPdfAdapter(
     private val getPreviewApplicationPdfUseCase: GetPreviewApplicationPdfUseCase,
     private val getFinalApplicationPdfUseCase: GetFinalApplicationPdfUseCase
 ) {
